@@ -1,33 +1,15 @@
-import { Oval } from '../entities/Oval';
+// Проверка формата строки для овала
+export class OvalValidator {
+  private static readonly PATTERN = /^\s*[-\d.,]+\s*;\s*[-\d.,]+\s*$/;
+  
+  static isValid(line: string): boolean {
+    const trimmed = line.trim();
+    if (!this.PATTERN.test(trimmed)) return false;
 
-export abstract class Validator {
-  protected next: Validator | null = null;
+    const [p1Str, p2Str] = trimmed.split(';');
+    const p1Coords = p1Str.split(',').map(Number);
+    const p2Coords = p2Str.split(',').map(Number);
 
-  setNext(handler: Validator): Validator {
-    this.next = handler;
-    return handler;
-  }
-
-  handle(oval: Oval): boolean {
-    if (this.next) {
-      return this.next.handle(oval);
-    }
-    return true;
+    return p1Coords.every(c => !isNaN(c)) && p2Coords.every(c => !isNaN(c));
   }
 }
-
-export class ZeroSizeValidator extends Validator {
-  handle(oval: Oval): boolean {
-    if (oval.width === 0 || oval.height === 0) return false;
-    return super.handle(oval);
-  }
-}
-
-export class AlignedPointsValidator extends Validator {
-    handle(oval: Oval): boolean {
-      const sameX = oval.topLeft.x === oval.bottomRight.x;
-      const sameY = oval.topLeft.y === oval.bottomRight.y;
-      if (sameX || sameY) return false;
-      return super.handle(oval);
-    }
-  }

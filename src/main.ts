@@ -1,42 +1,25 @@
-import { readInputFile } from './services/FileReader';
-import { OvalFactory } from './factory/OvalFactory';
-import { ZeroSizeValidator } from './chain/ZeroSizeValidator';
-import { AlignedPointsValidator } from './chain/AlignedPointsValidator';
-import { logger } from './logger/logger';
-import { OvalService } from './services/OvalService';
+import { FileReaderService } from './services/FileReaderService';
+import { logger } from './utils/logger';
+import path from 'path';
 
-async function main() {
+// Путь к .txt-файлу с описанием фигур
+const FILE_PATH = path.join(__dirname, '../data/shapes.txt');
+
+// Главная функция запуска
+async function main(): Promise<void> {
+  logger.info('Запуск приложения');
+
   try {
-    const lines = await readInputFile('data/input.txt');
-    const validOvals = [];
+    const shapes = await FileReaderService.readShapesFromFile(FILE_PATH);
 
-    const validator = new ZeroSizeValidator();
-    validator.setNext(new AlignedPointsValidator());
-
-    lines.forEach((line, i) => {
-      const parts = line.trim().split(/\s+/).map(Number);
-      if (parts.length === 4 && parts.every(n => !isNaN(n))) {
-        const oval = OvalFactory.create(`oval-${i}`, ...parts);
-        if (validator.handle(oval)) {
-          validOvals.push(oval);
-          logger.info({
-            id: oval.id,
-            area: OvalService.area(oval),
-            perimeter: OvalService.perimeter(oval),
-            isCircle: OvalService.isCircle(oval),
-            intersectsOneAxis: OvalService.intersectsOneAxis(oval, 2)
-          });
-        } else {
-          logger.warn(`Validation failed: ${line}`);
-        }
-      } else {
-        logger.warn(`Invalid line format: ${line}`);
-      }
-    });
-
-    console.log(`Successfully parsed ${validOvals.length} ovals.`);
-  } catch (err) {
-    logger.error(err);
+    if (!shapes || shapes.length === 0) {
+      console.log('Фигуры не были распознаны или файл пуст.');
+    } else {
+      console.log(`\nНайдено фигур: ${shapes.length}`);
+    }
+    logger.info('Завершение без ошибок');
+  } catch (error) {
+    logger.error(`Произошла ошибка: ${(error as Error).message}`);
   }
 }
 

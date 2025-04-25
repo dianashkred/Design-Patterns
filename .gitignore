@@ -1,0 +1,36 @@
+# Node.js
+node_modules/
+dist/
+coverage/
+logs/
+
+# TypeScript
+*.tsbuildinfo
+*.ts
+*.js
+
+# IDE
+.vscode/
+.idea/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Logs
+*.log
+
+# NPM
+package-lock.json
+
+# Jest
+jest.config.js
+
+
+# Ignore the .env file for sensitive data (if you use it)
+.env
+
+# Coverage directory used by tools like istanbul
+coverage/

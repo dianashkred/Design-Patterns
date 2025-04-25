@@ -1,17 +1,25 @@
 import { Point } from './Point';
+import { Shape } from './Shape';
 
-export class Oval {
+export class Oval extends Shape {
   constructor(
-    public id: string,
     public topLeft: Point,
-    public bottomRight: Point
-  ) {}
-
-  get width(): number {
-    return Math.abs(this.bottomRight.x - this.topLeft.x);
+    public bottomRight: Point,
+    public readonly name: string
+  ) {
+    super(name);
   }
 
-  get height(): number {
-    return Math.abs(this.bottomRight.y - this.topLeft.y);
+  isValid(): boolean {
+    return (
+      this.topLeft.getDimension() >= 2 &&
+      this.bottomRight.getDimension() >= 2 &&
+      this.topLeft.x !== this.bottomRight.x &&
+      this.topLeft.y !== this.bottomRight.y &&
+      !isNaN(this.topLeft.x) &&
+      !isNaN(this.topLeft.y) &&
+      !isNaN(this.bottomRight.x) &&
+      !isNaN(this.bottomRight.y)
+    );
   }
 }
