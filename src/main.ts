@@ -1,4 +1,4 @@
-import { FileReaderService } from './services/FileReaderService';
+import { FileReaderService } from './services/FileReaderService1';
 import { logger } from './utils/logger';
 import path from 'path';
 
