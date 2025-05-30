@@ -37,8 +37,6 @@ export class Oval extends Shape {
     return 0;
   }*/
 
- 
-
   setTopLeft(p: Point) {
     this.topLeft = p;
     this.changed();
