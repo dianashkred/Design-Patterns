@@ -1,4 +1,3 @@
-// src/services/ShapeParsingService.ts
 import { Shape } from "../entities/Shape";
 import { OvalFactory } from "../factories/OvalFactory";
 import { CubeFactory } from "../factories/CubeFactory";

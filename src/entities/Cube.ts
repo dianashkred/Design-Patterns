@@ -31,8 +31,6 @@ export class Cube extends Shape {
     return new CubeCalculator(this).getPerimeter();
   }
 
-
-  // метод изменения параметра — вызывает пересчёт
   setEdgeLength(len: number) {
     this.edgeLength = len;
     this.changed();

@@ -1,5 +1,5 @@
 import { Shape } from '../../src/entities/Shape';
-import { Warehouse } from '../../src/warehouse/Warehouse';
+import { Warehouse } from '../../src/patterns/Warehouse';
 import { Point } from '../../src/entities/Point';
  
 class TestShape extends Shape {

@@ -1,6 +1,5 @@
 import { InvalidShapeError } from '../exceptions/InvalidShapeError';
 
-// Класс точки в n-мерном пространстве
 export class Point {
   constructor(public coordinates: number[]) {
     if (coordinates.length === 0 || coordinates.some((c) => isNaN(c))) {

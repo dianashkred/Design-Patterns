@@ -33,9 +33,7 @@ export class Oval extends Shape {
   getPerimeter(): number {
     return new OvalCalculator(this).getPerimeter();
   }
-  /*getVolume(): number {
-    return 0;
-  }*/
+
 
   setTopLeft(p: Point) {
     this.topLeft = p;

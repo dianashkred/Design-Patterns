@@ -1,13 +1,11 @@
-// src/specifications/DistanceFromOriginSpecification.ts
 import { ISpecification } from "./ISpecification";
 import { Shape } from "../entities/Shape";
 import { Cube } from "../entities/Cube";
 import { Oval } from "../entities/Oval";
 
-/**
- * Спецификация поиска фигур,
- * у которых хотя бы одна точка лежит от начала координат
- * на расстоянии в диапазоне [min, max].
+/*Спецификация поиска фигур,
+  у которых хотя бы одна точка лежит от начала координат
+  на расстоянии в диапазоне [min, max].
  */
 export class DistanceFromOriginSpecification
   implements ISpecification<Shape>

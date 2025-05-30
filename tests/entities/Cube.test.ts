@@ -1,7 +1,8 @@
 import { Cube } from '../../src/entities/Cube';
 import { Point } from '../../src/entities/Point';
-import { Warehouse } from '../../src/warehouse/Warehouse';
+import { WarehouseObserver } from '../../src/patterns/WarehouseObserver'; // ← это важно!
 import * as CubeCalculatorModule from '../../src/services/CubeCalculator';
+import { Warehouse } from '../../src/patterns/Warehouse';
 
 describe('Cube', () => {
   const point = new Point([0, 0, 0]);
@@ -22,7 +23,7 @@ describe('Cube', () => {
   });
 
   it('should delegate calculations to CubeCalculator', () => {
-    const mockGetArea = jest.spyOn(CubeCalculatorModule, 'CubeCalculator')
+    const mock = jest.spyOn(CubeCalculatorModule, 'CubeCalculator')
       .mockImplementation(() => ({
         getArea: () => 150,
         getVolume: () => 300,
@@ -33,12 +34,15 @@ describe('Cube', () => {
     expect(cube.getArea()).toBe(150);
     expect(cube.getVolume()).toBe(300);
     expect(cube.getPerimeter()).toBe(60);
-    expect(mockGetArea).toHaveBeenCalled();
+    expect(mock).toHaveBeenCalled();
   });
 
   it('should notify observers on setEdgeLength', () => {
     const cube = new Cube(point, 3, 'NotifyCube');
-    const spy = jest.spyOn(Warehouse.getInstance(), 'update');
+    const observer = WarehouseObserver.getInstance();
+    cube.attach(observer);
+
+    const spy = jest.spyOn(observer, 'update');
     cube.setEdgeLength(7);
     expect(spy).toHaveBeenCalledWith(cube);
   });

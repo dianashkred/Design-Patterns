@@ -1,7 +1,8 @@
 import { Oval } from '../../src/entities/Oval';
 import { Point } from '../../src/entities/Point';
 import * as OvalCalculatorModule from '../../src/services/OvalCalculator';
-import { Warehouse } from '../../src/warehouse/Warehouse';
+import { Warehouse } from '../../src/patterns/Warehouse';
+import { WarehouseObserver } from '../../src/patterns/WarehouseObserver';
 
 describe('Oval', () => {
   const p1 = new Point([0, 5]);
@@ -23,7 +24,7 @@ describe('Oval', () => {
   });
 
   it('should call OvalCalculator methods', () => {
-    const mockCalc = jest.spyOn(OvalCalculatorModule, 'OvalCalculator')
+    const mock = jest.spyOn(OvalCalculatorModule, 'OvalCalculator')
       .mockImplementation(() => ({
         getArea: () => 42,
         getVolume: () => 0,
@@ -34,14 +35,18 @@ describe('Oval', () => {
     expect(oval.getArea()).toBe(42);
     expect(oval.getVolume()).toBe(0);
     expect(oval.getPerimeter()).toBe(24);
-    expect(mockCalc).toHaveBeenCalled();
+    expect(mock).toHaveBeenCalled();
   });
 
   it('should notify observers on setTopLeft and setBottomRight', () => {
     const oval = new Oval(p1, p2, 'ObserverOval');
-    const spy = jest.spyOn(Warehouse.getInstance(), 'update');
+    const observer = WarehouseObserver.getInstance();
+    oval.attach(observer);
+
+    const spy = jest.spyOn(observer, 'update');
     oval.setTopLeft(new Point([1, 1]));
     oval.setBottomRight(new Point([3, 3]));
     expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy).toHaveBeenCalledWith(oval);
   });
 });

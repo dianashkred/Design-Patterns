@@ -1,4 +1,3 @@
-// src/services/FileReaderService.ts
 import { logger } from "../utils/logger";
 import { ShapeRepository } from "../entities/ShapeRepository";
 import { FileLineReaderService } from "./FileLineReaderService";

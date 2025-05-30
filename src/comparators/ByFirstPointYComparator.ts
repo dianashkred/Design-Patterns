@@ -1,4 +1,3 @@
-//src/comparators/ByFirstPointYComparator.ts
 import { IComparator } from "./IComparator";
 import { Shape } from "../entities/Shape";
 import { Cube } from "../entities/Cube";

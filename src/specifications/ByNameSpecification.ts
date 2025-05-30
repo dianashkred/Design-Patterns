@@ -1,4 +1,3 @@
-// src/specifications/ByNameSpecification.ts
 import { ISpecification } from "./ISpecification";
 
 export class ByNameSpecification<T extends { name: string }>

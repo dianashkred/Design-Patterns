@@ -9,13 +9,11 @@ export class OvalFactory {
     try {
       const trimmed = data.trim();
 
-      // 1. Проверка наличия двух точек — иначе это невалидный ввод
       const [p1Raw, p2Raw] = trimmed.split(';');
       if (!p1Raw || !p2Raw) {
         throw new InvalidShapeError('Malformed oval input');
       }
 
-      // 2. Если валидатор не прошёл — это просто плохие данные, но не ошибка
       if (!OvalValidator.isValid(trimmed)) {
         return null;
       }

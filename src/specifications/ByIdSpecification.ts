@@ -1,4 +1,3 @@
-// src/specifications/ByIdSpecification.ts
 import { ISpecification } from "./ISpecification";
 
 export class ByIdSpecification<T extends { id: string }>

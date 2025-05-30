@@ -1,14 +1,16 @@
-// src/entities/ShapeRepository.ts
 import { Shape } from "../entities/Shape";
 import { IRepository } from "../repositories/IRepository";
 import { ISpecification } from "../specifications/ISpecification";
 import { IComparator } from "../comparators/IComparator";
-import { Warehouse } from "../warehouse/Warehouse";
+import { WarehouseObserver } from "../patterns/WarehouseObserver";
+import { Warehouse } from "../patterns/Warehouse";
 
 export class ShapeRepository implements IRepository<Shape> {
   private items: Map<string, Shape> = new Map();
 
   add(shape: Shape): void {
+    shape.attach(WarehouseObserver.getInstance());
+    WarehouseObserver.getInstance().update(shape);
     this.items.set(shape.id, shape);
   }
 
@@ -24,13 +26,12 @@ export class ShapeRepository implements IRepository<Shape> {
     return this.getAll().find(s => s.name === name);
   }
 
-
   remove(id: string): boolean {
     const shape = this.items.get(id);
     const removed = this.items.delete(id);
     if (removed && shape) {
-      shape.detach(Warehouse.getInstance());
-      // удаляет метрики
+      shape.detach(WarehouseObserver.getInstance());
+      
       Warehouse.getInstance().remove(shape.id);
     }
     return removed;

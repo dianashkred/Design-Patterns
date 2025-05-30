@@ -1,4 +1,3 @@
-// src/specifications/MetricRangeSpecification.ts
 import { ISpecification } from "./ISpecification";
 import { Shape } from "../entities/Shape";
 import { Cube } from "../entities/Cube";
@@ -7,10 +6,9 @@ import { CubeCalculator } from "../services/CubeCalculator";
 import { OvalCalculator } from "../services/OvalCalculator";
 import { Metric } from "../types/Metrics";
 
-/**
- * Спецификация поиска фигур, у которых
- * заданный метрик (площадь, периметр или объём)
- * лежит в [min, max].
+/*Спецификация поиска фигур, у которых
+  заданный метрик (площадь, периметр или объём)
+  лежит в [min, max].
  */
 export class MetricRangeSpecification
   implements ISpecification<Shape>

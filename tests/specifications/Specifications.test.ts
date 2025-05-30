@@ -1,9 +1,8 @@
-// tests/Specifications.test.ts
 import { ShapeRepository } from "../../src/entities/ShapeRepository";
 import { Point } from "../../src/entities/Point";
 import { Cube } from "../../src/entities/Cube";
 import { Oval } from "../../src/entities/Oval";
-import { Warehouse } from "../../src/warehouse/Warehouse";
+import { Warehouse } from "../../src/patterns/Warehouse";
 import { Shape } from "../../src/entities/Shape";
 import { ByIdSpecification } from "../../src/specifications/ByIdSpecification";
 import { ByNameSpecification } from "../../src/specifications/ByNameSpecification";

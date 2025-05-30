@@ -1,4 +1,3 @@
-// src/validators/BaseShapeValidator.ts
 export abstract class BaseShapeValidator {
   protected constructor(
     protected readonly pattern: RegExp

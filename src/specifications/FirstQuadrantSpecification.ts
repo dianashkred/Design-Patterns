@@ -1,4 +1,3 @@
-// src/specifications/FirstQuadrantSpecification.ts
 import { ISpecification } from "./ISpecification";
 import { Shape } from "../entities/Shape";
 import { Cube } from "../entities/Cube";
