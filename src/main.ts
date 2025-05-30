@@ -10,6 +10,8 @@ import { ByFirstPointXComparator } from "./comparators/ByFirstPointXComparator";
 import { ByFirstPointYComparator } from "./comparators/ByFirstPointYComparator";
 import { ByNameComparator } from "./comparators/ByNameComparator";
 import { Shape } from "./entities/Shape";
+import { DistanceFromOriginSpecification } from "./specifications/DistanceFromOriginSpecification";
+import { ByIdComparator } from "./comparators/ByIdComparator";
 
 async function main(): Promise<void> {
   logger.info("Запуск приложения");
@@ -44,6 +46,10 @@ async function main(): Promise<void> {
   const byArea = repository.find(new MetricRangeSpecification("area", 20, 100));
   console.log(`Фигуры с площадью от 20 до 100: ${byArea.length}`);
 
+  const byIdSorted = repository.sort(new ByIdComparator());
+  console.log("\nСортировка по ID:");
+  byIdSorted.forEach((s) => console.log(`- ${s.id}`));
+
   //Сортировка по имени
   const byNameSorted = repository.sort(new ByNameComparator());
   console.log("\nСортировка по имени:");
@@ -58,6 +64,9 @@ async function main(): Promise<void> {
   const byY = repository.sort(new ByFirstPointYComparator());
   console.log("\nСортировка по Y:");
   byY.forEach((s) => console.log(`- ${s.name}: Y = ${s.getPoints()[0].y}`));
+
+  const byDistance = repository.find(new DistanceFromOriginSpecification(0, 50));
+  console.log(`Фигуры на расстоянии 0–50 от начала координат: ${byDistance.length}`);
 
   //Удаление первого объекта 
   const first = shapes[0];

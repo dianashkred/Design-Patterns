@@ -17,10 +17,11 @@ describe('MetricRangeSpecification', () => {
   });
 
   it('should match ovals with area in range', () => {
-    const oval = new Oval(new Point([0, 0]), new Point([4, 2]), 'O1');
+    const oval = new Oval(new Point([0, 0]), new Point([6, 3]), 'O1');
     const spec = new MetricRangeSpecification('area', 10, 30);
     expect(spec.isSatisfied(oval)).toBe(true);
   });
+
 
   it('should reject ovals with metric not supported (volume)', () => {
     const oval = new Oval(new Point([0, 0]), new Point([3, 3]), 'O2');

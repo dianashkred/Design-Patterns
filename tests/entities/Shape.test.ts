@@ -2,7 +2,6 @@ import { Shape } from '../../src/entities/Shape';
 import { Warehouse } from '../../src/warehouse/Warehouse';
 import { Point } from '../../src/entities/Point';
  
-// Мок-фигура для теста абстрактного класса
 class TestShape extends Shape {
   constructor(public points: Point[]) {
     super("TestShape");
@@ -51,7 +50,7 @@ describe('Shape', () => {
     const mockObserver = { update: jest.fn() };
 
     shape.attach(mockObserver);
-    shape['observers'].add(mockObserver); // доступ через приватное свойство (если testScope)
+    shape['observers'].add(mockObserver); 
     shape['changed']();
     expect(mockObserver.update).toHaveBeenCalled();
 

@@ -11,8 +11,11 @@ describe('Warehouse', () => {
   });
 
   it('should store and retrieve metrics for a shape', () => {
-    const cube = new Cube(new Point([1, 2, 3]), 2, 'MyCube');
-    const metrics = Warehouse.getInstance().getMetricsById(cube.id);
+  const cube = new Cube(new Point([1, 2, 3]), 2, 'MyCube');
+
+  Warehouse.getInstance().update(cube);
+
+  const metrics = Warehouse.getInstance().getMetricsById(cube.id);
 
     expect(metrics).toEqual({
       area: 24,
@@ -20,6 +23,7 @@ describe('Warehouse', () => {
       perimeter: 24,
     });
   });
+
 
   it('should remove metrics for a shape', () => {
     const cube = new Cube(new Point([0, 0, 0]), 1, 'RemoveCube');

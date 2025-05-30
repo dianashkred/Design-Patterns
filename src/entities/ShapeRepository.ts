@@ -29,9 +29,8 @@ export class ShapeRepository implements IRepository<Shape> {
     const shape = this.items.get(id);
     const removed = this.items.delete(id);
     if (removed && shape) {
-      // отписываем фигуру от склада
       shape.detach(Warehouse.getInstance());
-      // удаляем её метрики
+      // удаляет метрики
       Warehouse.getInstance().remove(shape.id);
     }
     return removed;
