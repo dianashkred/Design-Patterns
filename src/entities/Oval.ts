@@ -1,5 +1,7 @@
 import { Shape } from './Shape';
 import { Point } from './Point';
+import { OvalCalculator } from "../services/OvalCalculator";
+import { CubeVolumeSplitterService } from "../services/CubeVolumeSplitterService";
 
 export class Oval extends Shape {
   constructor(
@@ -21,20 +23,21 @@ export class Oval extends Shape {
   }
 
   getArea(): number {
-    const a = Math.abs(this.bottomRight.x - this.topLeft.x) / 2;
-    const b = Math.abs(this.bottomRight.y - this.topLeft.y) / 2;
-    return Math.PI * a * b;
+    return new OvalCalculator(this).getArea();
   }
 
   getVolume(): number {
-    return 0;
+    return new OvalCalculator(this).getVolume();
   }
 
   getPerimeter(): number {
-    const a = Math.abs(this.bottomRight.x - this.topLeft.x) / 2;
-    const b = Math.abs(this.bottomRight.y - this.topLeft.y) / 2;
-    return Math.PI * (3 * (a + b) - Math.sqrt((3*a + b)*(a + 3*b)));
+    return new OvalCalculator(this).getPerimeter();
   }
+  /*getVolume(): number {
+    return 0;
+  }*/
+
+ 
 
   setTopLeft(p: Point) {
     this.topLeft = p;

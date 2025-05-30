@@ -6,12 +6,12 @@ import { Point } from './Point';
 
 export abstract class Shape {
   public readonly id: string;
+  private observers: Set<Observer> = new Set();
 
   constructor(public name: string) {
     this.id = uuid();
-    Warehouse.getInstance().update(this);             // первый расчёт
+    Warehouse.getInstance().update(this);// первый расчёт
     // подписываемся на обновления
-    (this as any).observers = (this as any).observers || new Set<Observer>();
     this.attach(Warehouse.getInstance());
   }
 
@@ -23,9 +23,6 @@ export abstract class Shape {
   abstract getVolume(): number;
   abstract getPerimeter(): number;
 
-  // observer
-  private observers: Set<Observer> = new Set();
-
   attach(o: Observer) {
     this.observers.add(o);
   }
@@ -33,7 +30,7 @@ export abstract class Shape {
     this.observers.delete(o);
   }
   protected changed(): void {
-    for (const o of this.observers) o.update(this);
+    this.observers.forEach(o => o.update(this));
   }
 }
 

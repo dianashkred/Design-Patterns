@@ -1,26 +1,22 @@
-import { FileReaderService } from './services/FileReaderService1';
-import { logger } from './utils/logger';
-import path from 'path';
+// src/main.ts
+import path from "path";
+import { logger } from "./utils/logger";
+import { FileReaderService } from "./services/FileReaderService";
 
-// Путь к .txt-файлу с описанием фигур
-const FILE_PATH = path.join(__dirname, '../data/shapes.txt');
-
-// Главная функция запуска
 async function main(): Promise<void> {
-  logger.info('Запуск приложения');
+  logger.info("Запуск приложения");
+  const filePath = path.join(__dirname, "../data/shapes.txt");
 
-  try {
-    const shapes = await FileReaderService.readShapesFromFile(FILE_PATH);
+  const repository = await FileReaderService.readShapesFromFile(filePath);
+  const shapes = repository.getAll();
 
-    if (!shapes || shapes.length === 0) {
-      console.log('Фигуры не были распознаны или файл пуст.');
-    } else {
-      console.log(`\nНайдено фигур: ${shapes.length}`);
-    }
-    logger.info('Завершение без ошибок');
-  } catch (error) {
-    logger.error(`Произошла ошибка: ${(error as Error).message}`);
+  if (shapes.length === 0) {
+    console.log("Фигуры не были распознаны или файл пуст.");
+  } else {
+    console.log(`\nНайдено фигур: ${shapes.length}`);
+    shapes.forEach((s) => console.log(`- ${s.name}`));
   }
+  logger.info("Завершение без ошибок");
 }
 
 main();

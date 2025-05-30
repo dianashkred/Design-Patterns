@@ -1,14 +1,11 @@
-export class CubeValidator {
-  private static readonly PATTERN = /^\s*[-\d.,]+\s*;\s*[-\d.,]+\s*$/;
-
+// src/validators/CubeValidator.ts
+import { BaseShapeValidator } from './BaseShapeValidator';
+export class CubeValidator extends BaseShapeValidator {
+  constructor() {
+    super(/^\s*[-\d.,]+\s*;\s*[-\d.,]+\s*$/);
+  }
   static isValid(line: string): boolean {
-    const trimmed = line.trim();
-    if (!this.PATTERN.test(trimmed)) return false;
-
-    const [pointStr, edgeStr] = trimmed.split(';');
-    const coords = pointStr.split(',').map(Number);
-    const edge = parseFloat(edgeStr);
-
-    return coords.every(c => !isNaN(c)) && !isNaN(edge);
+    const parts = new CubeValidator().parseParts(line);
+    return !!parts && parts[1]?.length === 1;
   }
 }

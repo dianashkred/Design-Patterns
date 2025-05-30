@@ -1,5 +1,6 @@
 import { Shape } from './Shape';
 import { Point } from './Point';
+import { CubeCalculator } from "../services/CubeCalculator";
 
 export class Cube extends Shape {
   constructor(
@@ -19,17 +20,17 @@ export class Cube extends Shape {
   }
 
   getArea(): number {
-    const a = this.edgeLength;
-    return 6 * a * a;
+    return new CubeCalculator(this).getArea();
   }
 
   getVolume(): number {
-    return this.edgeLength ** 3;
+    return new CubeCalculator(this).getVolume();
   }
 
   getPerimeter(): number {
-    return 12 * this.edgeLength;
+    return new CubeCalculator(this).getPerimeter();
   }
+
 
   // метод изменения параметра — вызывает пересчёт
   setEdgeLength(len: number) {
