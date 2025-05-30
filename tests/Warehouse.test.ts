@@ -4,7 +4,6 @@ import { Point } from '../src/entities/Point';
 
 describe('Warehouse', () => {
   beforeEach(() => {
-    // Очистим метрики вручную
     const warehouse = Warehouse.getInstance();
     Object.keys(warehouse.getAllMetrics()).forEach(id => {
       warehouse.remove(id);

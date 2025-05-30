@@ -10,6 +10,5 @@ describe('ByIdComparator', () => {
 
     const result = comp.compare(c1, c2);
     expect(typeof result).toBe('number');
-    // Проверим, что работает и не вызывает исключений
   });
 });
